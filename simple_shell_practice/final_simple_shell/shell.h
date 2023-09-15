@@ -17,6 +17,10 @@
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
 
+/* for length of commands */
+#define MAX_COMMAND_LENGTH 256
+#define MAX_ARGS 64
+
 /* for command chaining */
 #define CMD_NORM	0
 #define CMD_OR		1
