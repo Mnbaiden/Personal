@@ -6,23 +6,8 @@ extern char** environ; // Declare environ explicitly
 #define MAX_ARGS 64
 
 int command_exists(const char* command) {
-    char* path = getenv("PATH");
-    if (path != NULL) {
-        char path_copy[strlen(path) + 1];
-        strcpy(path_copy, path);
-
-        char* dir = strtok(path_copy, ":");
-        while (dir != NULL) {
-            char command_path[MAX_COMMAND_LENGTH];
-            snprintf(command_path, sizeof(command_path), "%s/%s", dir, command);
-            if (access(command_path, X_OK) == 0) {
-                return 1; // Command exists
-            }
-            dir = strtok(NULL, ":");
-        }
-    }
-    return 0; // Command not found
-
+    // ... (your existing code for checking if a command exists)
+}
 
 int main() {
     char input[MAX_COMMAND_LENGTH];
@@ -54,6 +39,21 @@ int main() {
 
         if (num_args == 0) {
             // No command entered, just display the prompt again
+            continue;
+        }
+
+        // Check if the command is "exit" and exit the shell
+        if (strcmp(args[0], "exit") == 0) {
+            break;
+        }
+
+        // Check if the command is "env" and print the environment
+        if (strcmp(args[0], "env") == 0) {
+            char** env = environ;
+            while (*env != NULL) {
+                printf("%s\n", *env);
+                env++;
+            }
             continue;
         }
 
